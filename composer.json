@@ -1,0 +1,15 @@
+{
+    "name": "nuclia/nuclia-php",
+    "description": "PHP Nuclia API",
+    "type": "library",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": { "Nuclia\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "require": {
+        "symfony/http-client": "^5.0"
+    }
+}
