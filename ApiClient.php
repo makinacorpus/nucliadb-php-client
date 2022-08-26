@@ -2,10 +2,10 @@
 
 namespace Nuclia;
 
-use http\Client\Response;
+use Nuclia\Api\ResourceFieldsApi;
+use Nuclia\Api\ResourcesApi;
+use Nuclia\Api\SearchApi;
 use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ApiClient
 {
@@ -14,12 +14,11 @@ class ApiClient
   const API_DOMAIN = 'nuclia.cloud';
   const API_BASEPATH = 'api/v1/kb';
 
-  protected static $isInit;
-  protected static $zone;
-  protected static $token;
-  protected static $kbid;
-  protected static $httpClient;
-  protected static $debug;
+  protected $zone;
+  protected $token;
+  protected $kbid;
+  protected $httpClient;
+  protected $debug;
 
   /**
    * Initialize Nuclia api client.
@@ -28,14 +27,13 @@ class ApiClient
    * @param string $kbid
    * @return void
    */
-  public static function init(string $zone, string $token, string $kbid)
+  public function __construct(string $zone, string $token, string $kbid)
   {
-    self::$isInit = true;
-    self::$zone = $zone;
-    self::$token = $token;
-    self::$kbid = $kbid;
-    self::$httpClient = HttpClient::create();
-    self::$debug = null;
+    $this->zone = $zone;
+    $this->token = $token;
+    $this->kbid = $kbid;
+    $this->httpClient = HttpClient::create();
+    $this->debug = null;
   }
 
   /**
@@ -43,9 +41,9 @@ class ApiClient
    * @param DebugAdapterInterface $debug
    * @return void
    */
-  public static function initDebug(DebugAdapterInterface $debug)
+  public function initDebug(DebugAdapterInterface $debug)
   {
-    self::$debug = $debug;
+    $this->debug = $debug;
   }
 
   /**
@@ -53,12 +51,38 @@ class ApiClient
    * @param $name
    * @return mixed
    */
-  public static function getProperty($name)
+  public function getProperty($name)
   {
-    if (self::$isInit) {
-      return self::$$name;
-    }
-    throw new \LogicException('Nuclia API client not initialized.');
+      return $this->{$name};
   }
 
+  /**
+   * Get ressource API.
+   * @see https://docs.nuclia.dev/docs/api#tag/Resources
+   * @return ResourcesApi
+   */
+  public function createResourcesApi(): ResourcesApi
+  {
+    return new ResourcesApi($this);
+  }
+
+  /**
+   * Get resource fields API.
+   * @see https://docs.nuclia.dev/docs/api#tag/Resource-fields
+   * @return ResourceFieldsApi
+   */
+  public function createResourceFieldsApi(): ResourceFieldsApi
+  {
+    return new ResourceFieldsApi($this);
+  }
+
+  /**
+   * Get search API.
+   * @see https://docs.nuclia.dev/docs/api#tag/Search
+   * @return SearchApi
+   */
+  public function createSearchApi(): SearchApi
+  {
+    return new SearchApi($this);
+  }
 }

@@ -8,12 +8,13 @@ class RequestOptions extends RequestOptionsAbstract
 {
   /**
    * @inerhitDoc
+   * @param ApiClient $apiClient
    */
-  public function __construct()
+  public function __construct(ApiClient $apiClient)
   {
     parent::__construct();
     $this->values['headers'] = (new RequestOptionsGroup())
-      ->set('X-STF-Serviceaccount', 'Bearer ' . ApiClient::getProperty('token'));
+      ->set('X-STF-Serviceaccount', 'Bearer ' . $apiClient->getProperty('token'));
   }
 
   /**
@@ -31,7 +32,12 @@ class RequestOptions extends RequestOptionsAbstract
     foreach ($subset->getRaw() as $subkey => $subitem) {
       $this->values[$key]->set($subkey, $subitem);
     }
-    $this->values[$key]->enableJsonMode($subset->getJsonMode());
+    if($subset->getJsonMode()){
+      $this->values[$key]->enableJsonMode();
+    } else {
+      $this->values[$key]->disableJsonMode();
+    }
+
     return $this;
   }
 

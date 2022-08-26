@@ -1,6 +1,6 @@
 <?php
 
-namespace Nuclia;
+namespace Nuclia\Api;
 
 use Nuclia\Enum\Enum;
 use Nuclia\Enum\MethodEnum;
@@ -9,9 +9,10 @@ use Nuclia\EnumArray\FieldTypeEnumArray;
 use Nuclia\EnumArray\ShowEnumArray;
 use Nuclia\RequestOptions\RequestOptions;
 use Nuclia\RequestOptions\RequestOptionsGroup;
+use Nuclia\Utils;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class Resources
+class ResourcesApi extends ApiAbstract
 {
 
   /**
@@ -19,18 +20,20 @@ class Resources
    * @see https://docs.nuclia.dev/docs/api#operation/Get_Resource_kb__kbid__resource__rid__get
    * @param string $rid
    * @param ShowEnumArray|null $show
+   * @param FieldTypeEnumArray|null $fieldType
+   * @param ExtractedEnumArray|null $extracted
    * @return ResponseInterface
    */
-  public static function getResource(string $rid, ShowEnumArray $show = null, FieldTypeEnumArray $fieldType = null, ExtractedEnumArray $extracted = null): ResponseInterface
+  public function getResource(string $rid, ShowEnumArray $show = null, FieldTypeEnumArray $fieldType = null, ExtractedEnumArray $extracted = null): ResponseInterface
   {
-    $uri = Utils::buildUrl('resource/%rid', ['%rid' => $rid]);
-    $options = (new RequestOptions())
+    $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
+    $options = (new RequestOptions($this->apiClient))
       ->group('query', (new RequestOptionsGroup())
         ->set('show', Utils::getEnumArrayValues($show))
         ->set('field_type', Utils::getEnumArrayValues($fieldType))
         ->set('extracted', Utils::getEnumArrayValues($extracted))
       );
-    return Utils::request(Enum::method(MethodEnum::GET), $uri, $options->getArray());
+    return $this->request(Enum::method(MethodEnum::GET), $uri, $options->getArray());
   }
 
   /**
@@ -39,10 +42,10 @@ class Resources
    * @param array $body
    * @return ResponseInterface
    */
-  public static function createResource(array $body): ResponseInterface
+  public function createResource(array $body): ResponseInterface
   {
-    $uri = Utils::buildUrl('resources');
-    $options = (new RequestOptions())
+    $uri = $this->buildUrl('resources');
+    $options = (new RequestOptions($this->apiClient))
       ->group('headers', (new RequestOptionsGroup())
         ->set('Content-Type', 'application/json')
       )
@@ -50,7 +53,7 @@ class Resources
         ->enableJsonMode()
       );
 
-    return Utils::request(Enum::method(MethodEnum::POST), $uri, $options->getArray());
+    return $this->request(Enum::method(MethodEnum::POST), $uri, $options->getArray());
   }
 
   /**
@@ -59,10 +62,10 @@ class Resources
    * @param string $rid
    * @return ResponseInterface
    */
-  public static function deleteResource(string $rid){
-    $uri = Utils::buildUrl('resource/%rid', ['%rid' => $rid]);
-    $options = (new RequestOptions());
-    return Utils::request(Enum::method(MethodEnum::DELETE), $uri, $options->getArray());
+  public function deleteResource(string $rid):ResponseInterface{
+    $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
+    $options = (new RequestOptions($this->apiClient));
+    return $this->request(Enum::method(MethodEnum::DELETE), $uri, $options->getArray());
   }
 
   /**
@@ -72,15 +75,15 @@ class Resources
    * @param $body
    * @return ResponseInterface
    */
-  public static function modifyResource(string $rid, $body){
-    $uri = Utils::buildUrl('resource/%rid', ['%rid' => $rid]);
-    $options = (new RequestOptions())
+  public function modifyResource(string $rid, $body): ResponseInterface{
+    $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
+    $options = (new RequestOptions($this->apiClient))
       ->group('headers', (new RequestOptionsGroup())
         ->set('Content-Type', 'application/json')
       )
       ->group('body', (new RequestOptionsGroup($body))
         ->enableJsonMode()
       );
-    return Utils::request(Enum::method(MethodEnum::PATCH), $uri, $options->getArray());
+    return $this->request(Enum::method(MethodEnum::PATCH), $uri, $options->getArray());
   }
 }

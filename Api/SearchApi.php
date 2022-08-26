@@ -1,16 +1,16 @@
 <?php
 
-namespace Nuclia;
-
+namespace Nuclia\Api;
 
 use Nuclia\Enum\Enum;
 use Nuclia\Enum\MethodEnum;
 use Nuclia\Enum\SortEnum;
 use Nuclia\RequestOptions\RequestOptions;
 use Nuclia\RequestOptions\RequestOptionsGroup;
+use Nuclia\Utils;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class Search
+class SearchApi extends ApiAbstract
 {
 
   /**
@@ -22,17 +22,17 @@ class Search
    * @param int|null $pageSize
    * @return ResponseInterface
    */
-  public static function search(string $query, ?SortEnum $sort = null, ?int $pageNumber = null, ?int $pageSize = null): ResponseInterface
+  public function search(string $query, ?SortEnum $sort = null, ?int $pageNumber = null, ?int $pageSize = null): ResponseInterface
   {
-    $uri = Utils::buildUrl('search');
-    $options = (new RequestOptions())
+    $uri = $this->buildUrl('search');
+    $options = (new RequestOptions($this->apiClient))
       ->group('query', (new RequestOptionsGroup())
         ->set('query', $query)
         ->set('sort', Utils::getEnumValue($sort))
         ->set('page_number', $pageNumber)
         ->set('page_size', $pageSize)
       );
-    return Utils::request(Enum::method(MethodEnum::GET), $uri, $options->getArray());
+    return $this->request(Enum::method(MethodEnum::GET), $uri, $options->getArray());
   }
 
 }

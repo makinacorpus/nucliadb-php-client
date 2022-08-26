@@ -1,13 +1,13 @@
 <?php
 
-namespace Nuclia;
+namespace Nuclia\Api;
 
 use Nuclia\Enum\Enum;
 use Nuclia\Enum\MethodEnum;
 use Nuclia\RequestOptions\RequestOptions;
 use Nuclia\RequestOptions\RequestOptionsGroup;
 
-class ResourceFields
+class ResourceFieldsApi extends ApiAbstract
 {
 
   /**
@@ -18,16 +18,16 @@ class ResourceFields
    * @param string $body
    * @return \Symfony\Contracts\HttpClient\ResponseInterface
    */
-  public static function uploadBinaryFile(string $rid, string $fieldId, string $body){
-    $uri = Utils::buildUrl('resource/%rid/file/%field/upload', [
+  public function uploadBinaryFile(string $rid, string $fieldId, string $body){
+    $uri = $this->buildUrl('resource/%rid/file/%field/upload', [
       '%rid' => $rid,
       '%field' => $fieldId
     ]);
-    $options = (new RequestOptions())
+    $options = (new RequestOptions($this->apiClient))
       ->group('headers', (new RequestOptionsGroup())
         ->set('Content-Type', 'multipart/form-data')
       )
       ->set('body', $body);
-    return Utils::request(Enum::method(MethodEnum::POST), $uri, $options->getArray());
+    return $this->request(Enum::method(MethodEnum::POST), $uri, $options->getArray());
   }
 }
