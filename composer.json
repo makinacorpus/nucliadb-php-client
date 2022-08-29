@@ -1,8 +1,8 @@
 {
     "name": "makina-corpus/nucliadb-php-client",
-    "description": "PHP Nuclia API",
+    "description": "PHP client for NucliaDB API",
     "type": "library",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": { "Nuclia\\": "" },
         "exclude-from-classmap": [
@@ -10,6 +10,6 @@
         ]
     },
     "require": {
-        "symfony/http-client": "^5.0"
+        "symfony/http-client": "~6.1"
     }
 }
