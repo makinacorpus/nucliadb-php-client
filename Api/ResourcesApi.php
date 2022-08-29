@@ -14,76 +14,87 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ResourcesApi extends ApiAbstract
 {
+    /**
+     * Implement: Get Resource.
+     * @see https://docs.nuclia.dev/docs/api#operation/Get_Resource_kb__kbid__resource__rid__get
+     * @param string $rid
+     * @param ShowEnumArray|null $show
+     * @param FieldTypeEnumArray|null $fieldType
+     * @param ExtractedEnumArray|null $extracted
+     * @return ResponseInterface
+     */
+    public function getResource(string $rid, ShowEnumArray $show = null, FieldTypeEnumArray $fieldType = null, ExtractedEnumArray $extracted = null): ResponseInterface
+    {
+        $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
+        $options = (new RequestOptions($this->apiClient))
+          ->group(
+              'query',
+              (new RequestOptionsGroup())
+            ->set('show', Utils::getEnumArrayValues($show))
+            ->set('field_type', Utils::getEnumArrayValues($fieldType))
+            ->set('extracted', Utils::getEnumArrayValues($extracted))
+          );
+        return $this->request(Enum::method(MethodEnum::GET), $uri, $options->getArray());
+    }
 
-  /**
-   * Implement: Get Resource.
-   * @see https://docs.nuclia.dev/docs/api#operation/Get_Resource_kb__kbid__resource__rid__get
-   * @param string $rid
-   * @param ShowEnumArray|null $show
-   * @param FieldTypeEnumArray|null $fieldType
-   * @param ExtractedEnumArray|null $extracted
-   * @return ResponseInterface
-   */
-  public function getResource(string $rid, ShowEnumArray $show = null, FieldTypeEnumArray $fieldType = null, ExtractedEnumArray $extracted = null): ResponseInterface
-  {
-    $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
-    $options = (new RequestOptions($this->apiClient))
-      ->group('query', (new RequestOptionsGroup())
-        ->set('show', Utils::getEnumArrayValues($show))
-        ->set('field_type', Utils::getEnumArrayValues($fieldType))
-        ->set('extracted', Utils::getEnumArrayValues($extracted))
-      );
-    return $this->request(Enum::method(MethodEnum::GET), $uri, $options->getArray());
-  }
+    /**
+     * Implement: Create Resource.
+     * @see https://docs.nuclia.dev/docs/api#operation/Create_Resource_kb__kbid__resources_post
+     * @param array $body
+     * @return ResponseInterface
+     */
+    public function createResource(array $body): ResponseInterface
+    {
+        $uri = $this->buildUrl('resources');
+        $options = (new RequestOptions($this->apiClient))
+          ->group(
+              'headers',
+              (new RequestOptionsGroup())
+            ->set('Content-Type', 'application/json')
+          )
+          ->group(
+              'body',
+              (new RequestOptionsGroup($body))
+            ->enableJsonMode()
+          );
 
-  /**
-   * Implement: Create Resource.
-   * @see https://docs.nuclia.dev/docs/api#operation/Create_Resource_kb__kbid__resources_post
-   * @param array $body
-   * @return ResponseInterface
-   */
-  public function createResource(array $body): ResponseInterface
-  {
-    $uri = $this->buildUrl('resources');
-    $options = (new RequestOptions($this->apiClient))
-      ->group('headers', (new RequestOptionsGroup())
-        ->set('Content-Type', 'application/json')
-      )
-      ->group('body', (new RequestOptionsGroup($body))
-        ->enableJsonMode()
-      );
+        return $this->request(Enum::method(MethodEnum::POST), $uri, $options->getArray());
+    }
 
-    return $this->request(Enum::method(MethodEnum::POST), $uri, $options->getArray());
-  }
+    /**
+     * Implement: Delete Resource
+     * @see https://docs.nuclia.dev/docs/api#operation/Delete_Resource_kb__kbid__resource__rid__delete
+     * @param string $rid
+     * @return ResponseInterface
+     */
+    public function deleteResource(string $rid): ResponseInterface
+    {
+        $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
+        $options = (new RequestOptions($this->apiClient));
+        return $this->request(Enum::method(MethodEnum::DELETE), $uri, $options->getArray());
+    }
 
-  /**
-   * Implement: Delete Resource
-   * @see https://docs.nuclia.dev/docs/api#operation/Delete_Resource_kb__kbid__resource__rid__delete
-   * @param string $rid
-   * @return ResponseInterface
-   */
-  public function deleteResource(string $rid):ResponseInterface{
-    $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
-    $options = (new RequestOptions($this->apiClient));
-    return $this->request(Enum::method(MethodEnum::DELETE), $uri, $options->getArray());
-  }
-
-  /**
-   * Implement: Modify Resource.
-   * @see https://docs.nuclia.dev/docs/api#operation/Modify_Resource_kb__kbid__resource__rid__patch
-   * @param string $rid
-   * @param $body
-   * @return ResponseInterface
-   */
-  public function modifyResource(string $rid, $body): ResponseInterface{
-    $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
-    $options = (new RequestOptions($this->apiClient))
-      ->group('headers', (new RequestOptionsGroup())
-        ->set('Content-Type', 'application/json')
-      )
-      ->group('body', (new RequestOptionsGroup($body))
-        ->enableJsonMode()
-      );
-    return $this->request(Enum::method(MethodEnum::PATCH), $uri, $options->getArray());
-  }
+    /**
+     * Implement: Modify Resource.
+     * @see https://docs.nuclia.dev/docs/api#operation/Modify_Resource_kb__kbid__resource__rid__patch
+     * @param string $rid
+     * @param $body
+     * @return ResponseInterface
+     */
+    public function modifyResource(string $rid, $body): ResponseInterface
+    {
+        $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
+        $options = (new RequestOptions($this->apiClient))
+          ->group(
+              'headers',
+              (new RequestOptionsGroup())
+            ->set('Content-Type', 'application/json')
+          )
+          ->group(
+              'body',
+              (new RequestOptionsGroup($body))
+            ->enableJsonMode()
+          );
+        return $this->request(Enum::method(MethodEnum::PATCH), $uri, $options->getArray());
+    }
 }
