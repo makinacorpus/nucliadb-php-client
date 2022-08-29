@@ -1,5 +1,5 @@
 {
-    "name": "nuclia/nuclia-php",
+    "name": "makina-corpus/nucliadb-php-client",
     "description": "PHP Nuclia API",
     "type": "library",
     "minimum-stability": "dev",
