@@ -2,6 +2,9 @@
 
 namespace Nuclia\RequestOptions;
 
+/**
+ * Request options group.
+ */
 class RequestOptionsGroup extends RequestOptionsAbstract
 {
     protected $jsonMode;
@@ -28,6 +31,7 @@ class RequestOptionsGroup extends RequestOptionsAbstract
     /**
      * Enable json mode.
      * Enabled json mode will produce a json encoded array instead of a simple array on getArray method call.
+     *
      * @return $this
      */
     public function enableJsonMode()
@@ -38,6 +42,7 @@ class RequestOptionsGroup extends RequestOptionsAbstract
 
     /**
      * Disable json mode.
+     *
      * @return $this
      */
     public function disableJsonMode()
@@ -48,6 +53,7 @@ class RequestOptionsGroup extends RequestOptionsAbstract
 
     /**
      * Get Json mode state.
+     *
      * @return false
      */
     public function getJsonMode()
@@ -57,6 +63,7 @@ class RequestOptionsGroup extends RequestOptionsAbstract
 
     /**
      * Get raw values.
+     *
      * @return array|mixed
      */
     public function getRaw()

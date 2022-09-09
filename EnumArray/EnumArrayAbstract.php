@@ -2,6 +2,9 @@
 
 namespace Nuclia\EnumArray;
 
+/**
+ * Abstract base class for enum array classes.
+ */
 abstract class EnumArrayAbstract implements EnumArrayInterface
 {
     protected $items;

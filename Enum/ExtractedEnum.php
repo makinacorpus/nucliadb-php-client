@@ -2,6 +2,9 @@
 
 namespace Nuclia\Enum;
 
+/**
+ * Enum class for 'extracted' value.
+ */
 class ExtractedEnum extends EnumAbstract
 {
     public const TEXT = 'text';
@@ -17,12 +20,12 @@ class ExtractedEnum extends EnumAbstract
     public function getAllowedValues(): array
     {
         return [
-          self::TEXT,
-          self::METADATA,
-          self::LARGE_METADATA,
-          self::VECTORS,
-          self::LINK,
-          self::FILE
+        self::TEXT,
+        self::METADATA,
+        self::LARGE_METADATA,
+        self::VECTORS,
+        self::LINK,
+        self::FILE,
         ];
     }
 }

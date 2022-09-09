@@ -2,8 +2,9 @@
 
 namespace Nuclia\Enum;
 
-use LogicException;
-
+/**
+ * Abstract base class for enum classes.
+ */
 abstract class EnumAbstract implements EnumInterface
 {
     protected $value;
@@ -14,7 +15,7 @@ abstract class EnumAbstract implements EnumInterface
     final public function __construct(string $value)
     {
         if (!in_array($value, $this->getAllowedValues(), true)) {
-            throw new LogicException(sprintf('"%s" : Value not allowed for %s', $value, get_class($this)));
+            throw new \LogicException(sprintf('"%s" : Value not allowed for %s', $value, get_class($this)));
         }
         $this->value = $value;
     }

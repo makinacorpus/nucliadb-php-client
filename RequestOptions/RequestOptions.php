@@ -4,23 +4,37 @@ namespace Nuclia\RequestOptions;
 
 use Nuclia\ApiClient;
 
+/**
+ * Request options.
+ */
 class RequestOptions extends RequestOptionsAbstract
 {
     /**
+     * Api client.
+     *
+     * @var \Nuclia\ApiClientApiClient
+     */
+    protected ApiClient $apiClient;
+
+    /**
      * @inerhitDoc
-     * @param ApiClient $apiClient
+     *
+     * @param \Nuclia\ApiClient $apiClient
      */
     public function __construct(ApiClient $apiClient)
     {
         parent::__construct();
+        $this->apiClient = $apiClient;
         $this->values['headers'] = (new RequestOptionsGroup())
-          ->set('X-STF-Serviceaccount', 'Bearer ' . $apiClient->getProperty('token'));
+            ->set('X-STF-Serviceaccount', 'Bearer ' . $apiClient->getProperty('token'));
     }
 
     /**
      * Add a RequestOptionsGroup inside the current RequestOptions.
-     * @param string $key
+     *
+     * @param string              $key
      * @param RequestOptionsGroup $subset
+     *
      * @return $this
      */
     public function group(string $key, RequestOptionsGroup $subset)
@@ -39,5 +53,15 @@ class RequestOptions extends RequestOptionsAbstract
         }
 
         return $this;
+    }
+
+    /**
+     * Get Api client.
+     *
+     * @return \Nuclia\ApiClient
+     */
+    public function getApiClient()
+    {
+        return $this->apiClient;
     }
 }

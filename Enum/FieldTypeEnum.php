@@ -2,6 +2,9 @@
 
 namespace Nuclia\Enum;
 
+/**
+ * Enum class for 'field_type' value.
+ */
 class FieldTypeEnum extends EnumAbstract
 {
     public const TEXT = 'text';
@@ -19,14 +22,14 @@ class FieldTypeEnum extends EnumAbstract
     public function getAllowedValues(): array
     {
         return [
-          self::TEXT,
-          self::FILE,
-          self::LINK,
-          self::LAYOUT,
-          self::CONVERSATION,
-          self::KEYWORDSET,
-          self::DATETIME,
-          self::GENERIC,
+        self::TEXT,
+        self::FILE,
+        self::LINK,
+        self::LAYOUT,
+        self::CONVERSATION,
+        self::KEYWORDSET,
+        self::DATETIME,
+        self::GENERIC,
         ];
     }
 }

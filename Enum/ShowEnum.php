@@ -2,6 +2,9 @@
 
 namespace Nuclia\Enum;
 
+/**
+ * Enum class for 'show' value.
+ */
 class ShowEnum extends EnumAbstract
 {
     public const BASIC = 'basic';
@@ -17,12 +20,12 @@ class ShowEnum extends EnumAbstract
     public function getAllowedValues(): array
     {
         return [
-          self::BASIC,
-          self::ORIGIN,
-          self::RELATION,
-          self::VALUES,
-          self::EXTRACTED,
-          self::ERROR
+        self::BASIC,
+        self::ORIGIN,
+        self::RELATION,
+        self::VALUES,
+        self::EXTRACTED,
+        self::ERROR,
         ];
     }
 }

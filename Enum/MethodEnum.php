@@ -2,6 +2,9 @@
 
 namespace Nuclia\Enum;
 
+/**
+ * Enum class for 'method' value.
+ */
 class MethodEnum extends EnumAbstract
 {
     public const GET = 'GET';
@@ -15,10 +18,10 @@ class MethodEnum extends EnumAbstract
     public function getAllowedValues(): array
     {
         return [
-          self::GET,
-          self::POST,
-          self::DELETE,
-          self::PATCH
+        self::GET,
+        self::POST,
+        self::DELETE,
+        self::PATCH,
         ];
     }
 }

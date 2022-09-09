@@ -2,6 +2,9 @@
 
 namespace Nuclia\Enum;
 
+/**
+ * Enum class for 'sort' value.
+ */
 class SortEnum extends EnumAbstract
 {
     public const MODIFIED = 'modified';
@@ -13,8 +16,8 @@ class SortEnum extends EnumAbstract
     public function getAllowedValues(): array
     {
         return [
-          self::MODIFIED,
-          self::CREATED
+        self::MODIFIED,
+        self::CREATED,
         ];
     }
 }

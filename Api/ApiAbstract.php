@@ -6,12 +6,17 @@ use Nuclia\ApiClient;
 use Nuclia\Enum\MethodEnum;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-use const PHP_QUERY_RFC3986;
+/**
+ * Abstract base class for API classes.
+ */
 
 abstract class ApiAbstract
 {
     protected $apiClient;
 
+    /**
+     *
+     */
     public function __construct(ApiClient $apiClient)
     {
         $this->apiClient = $apiClient;
@@ -19,28 +24,37 @@ abstract class ApiAbstract
 
     /**
      * Build Nuclia web API url.
+     *
      * @param string $serviceUrlPart
-     * @param array $params
+     * @param array  $params
+     *
      * @return string
      */
     protected function buildUrl(string $serviceUrlPart, array $params = []): string
     {
-        return strtr(ApiClient::API_URI_TEMPLATE, [
-          '%protocol' => ApiClient::API_PROTOCOL,
-          '%zone' => $this->apiClient->getProperty('zone'),
-          '%domain' => ApiClient::API_DOMAIN,
-          '%basepath' => ApiClient::API_BASEPATH,
-          '%kbid' => $this->apiClient->getProperty('kbid'),
-          '%name' => strtr($serviceUrlPart, $params)
-        ]);
+        return strtr(
+            ApiClient::API_URI_TEMPLATE,
+            [
+            '%protocol' => ApiClient::API_PROTOCOL,
+            '%zone' => $this->apiClient->getProperty('zone'),
+            '%domain' => ApiClient::API_DOMAIN,
+            '%basepath' => ApiClient::API_BASEPATH,
+            '%kbid' => $this->apiClient->getProperty('kbid'),
+            '%name' => strtr($serviceUrlPart, $params),
+            ]
+        );
     }
 
     /**
      * Send a request to Nuclia web API and return the response.
-     * @param string $method @see ApiClient::API_METHOD_* const
+     *
+     * @param string $method
+     *
+     * @see   ApiClient::API_METHOD_* const
      * @param string $url
-     * @param array $options
-     * @return ResponseInterface
+     * @param array  $options
+     *
+     * @return \Symfony\Contracts\HttpClient\ResponseInterface
      */
     protected function request(MethodEnum $method, string $url, array $options = []): ResponseInterface
     {

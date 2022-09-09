@@ -2,11 +2,16 @@
 
 namespace Nuclia\EnumArray;
 
+/**
+ * Enum array repository static class.
+ */
 class EnumArray
 {
     /**
      * Create a new "show" array of enum values.
+     *
      * @param array $values
+     *
      * @return ShowEnumArray
      */
     public static function show(array $values): ShowEnumArray
@@ -16,7 +21,9 @@ class EnumArray
 
     /**
      * Create a new "field type" array of enum values.
+     *
      * @param array $values
+     *
      * @return FieldTypeEnumArray
      */
     public static function fieldType(array $values): FieldTypeEnumArray
@@ -26,7 +33,9 @@ class EnumArray
 
     /**
      * Create a new "extracted" array of enum values.
+     *
      * @param array $values
+     *
      * @return ExtractedEnumArray
      */
     public static function extracted(array $values): ExtractedEnumArray

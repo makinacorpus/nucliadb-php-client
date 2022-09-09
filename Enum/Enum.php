@@ -2,11 +2,16 @@
 
 namespace Nuclia\Enum;
 
+/**
+ * Enum repository static class.
+ */
 class Enum
 {
     /**
      * Create a new "method" enum value.
+     *
      * @param string $value
+     *
      * @return MethodEnum
      */
     public static function method(string $value): MethodEnum
@@ -16,7 +21,9 @@ class Enum
 
     /**
      * Create a new "show" enum value.
+     *
      * @param string $value
+     *
      * @return ShowEnum
      */
     public static function show(string $value): ShowEnum
@@ -26,7 +33,9 @@ class Enum
 
     /**
      * Create a new "field type" enum value.
+     *
      * @param string $value
+     *
      * @return FieldTypeEnum
      */
     public static function fieldType(string $value): FieldTypeEnum
@@ -36,7 +45,9 @@ class Enum
 
     /**
      * Create a new "extracted" enum value.
+     *
      * @param string $value
+     *
      * @return ExtractedEnum
      */
     public static function extracted(string $value): ExtractedEnum
@@ -46,7 +57,9 @@ class Enum
 
     /**
      * Create a new "sort" enum value.
+     *
      * @param string $value
+     *
      * @return sortEnum
      */
     public static function sort(string $value): sortEnum
