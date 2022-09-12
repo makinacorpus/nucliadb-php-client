@@ -16,7 +16,7 @@
         "friendsofphp/php-cs-fixer": "^3.10"
     },
     "scripts": {
-        "lint": "php-cs-fixer fix .",
-        "test:lint": "php-cs-fixer fix . -v --dry-run"
+        "lint": "./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix .",
+        "test:lint": "./tools/php-cs-fixer/vendor/bin/php-cs-fixer fix . -v --dry-run"
     }
 }
