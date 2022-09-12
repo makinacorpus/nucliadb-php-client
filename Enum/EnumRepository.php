@@ -60,10 +60,10 @@ class EnumRepository
      *
      * @param string $value
      *
-     * @return sortEnum
+     * @return SortEnum
      */
-    public static function sort(string $value): sortEnum
+    public static function sort(string $value): SortEnum
     {
-        return new sortEnum($value);
+        return new SortEnum($value);
     }
 }
