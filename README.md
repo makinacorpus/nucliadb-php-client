@@ -1,8 +1,10 @@
 # NucliaDB PHP Client.
 
-Disclamer : This library still in development. It had been setup in order to develop some PHP CMS specific modules,
+
+
+Disclaimer : This library still in development. It had been setup in order to develop some PHP CMS specific modules,
 while keeping in common any possible part of code. At this state, the library implements only a small subset of the
-web api calls. Feel free to PR unimplemented ones to make this lib grow up.
+web api calls. Feel free to PR unimplemented ones to make this lib grow up. Some useful contributors' documentation can be found in this repository's [docs/contributors](docs/contributors) directory.
 
 # Usage
 
