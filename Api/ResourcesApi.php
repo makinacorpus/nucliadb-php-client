@@ -2,7 +2,7 @@
 
 namespace Nuclia\Api;
 
-use Nuclia\Enum\Enum;
+use Nuclia\Enum\EnumRepository;
 use Nuclia\Enum\MethodEnum;
 use Nuclia\EnumArray\ExtractedEnumArray;
 use Nuclia\EnumArray\FieldTypeEnumArray;
@@ -41,7 +41,7 @@ class ResourcesApi extends ApiAbstract
                 ->set('field_type', Utils::getEnumArrayValues($fieldType))
                 ->set('extracted', Utils::getEnumArrayValues($extracted))
         );
-        return $this->request(Enum::method(MethodEnum::GET), $uri, $options->getArray());
+        return $this->request(EnumRepository::method(MethodEnum::GET), $uri, $options->getArray());
     }
 
     /**
@@ -67,7 +67,7 @@ class ResourcesApi extends ApiAbstract
               ->enableJsonMode()
         );
 
-        return $this->request(Enum::method(MethodEnum::POST), $uri, $options->getArray());
+        return $this->request(EnumRepository::method(MethodEnum::POST), $uri, $options->getArray());
     }
 
     /**
@@ -82,7 +82,7 @@ class ResourcesApi extends ApiAbstract
     {
         $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
         $options = (new RequestOptions($this->apiClient));
-        return $this->request(Enum::method(MethodEnum::DELETE), $uri, $options->getArray());
+        return $this->request(EnumRepository::method(MethodEnum::DELETE), $uri, $options->getArray());
     }
 
     /**
@@ -108,6 +108,6 @@ class ResourcesApi extends ApiAbstract
             (new RequestOptionsGroup($body))
               ->enableJsonMode()
         );
-        return $this->request(Enum::method(MethodEnum::PATCH), $uri, $options->getArray());
+        return $this->request(EnumRepository::method(MethodEnum::PATCH), $uri, $options->getArray());
     }
 }

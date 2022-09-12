@@ -5,7 +5,7 @@ namespace Nuclia\EnumArray;
 /**
  * Enum array repository static class.
  */
-class EnumArray
+class EnumArrayRepository
 {
     /**
      * Create a new "show" array of enum values.

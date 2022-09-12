@@ -2,7 +2,7 @@
 
 namespace Nuclia\Api;
 
-use Nuclia\Enum\Enum;
+use Nuclia\Enum\EnumRepository;
 use Nuclia\Enum\MethodEnum;
 use Nuclia\Enum\SortEnum;
 use Nuclia\RequestOptions\RequestOptions;
@@ -40,6 +40,6 @@ class SearchApi extends ApiAbstract
                 ->set('page_number', $pageNumber)
                 ->set('page_size', $pageSize)
         );
-        return $this->request(Enum::method(MethodEnum::GET), $uri, $options->getArray());
+        return $this->request(EnumRepository::method(MethodEnum::GET), $uri, $options->getArray());
     }
 }

@@ -5,7 +5,7 @@ namespace Nuclia\Enum;
 /**
  * Enum repository static class.
  */
-class Enum
+class EnumRepository
 {
     /**
      * Create a new "method" enum value.

@@ -2,7 +2,7 @@
 
 namespace Nuclia\Api;
 
-use Nuclia\Enum\Enum;
+use Nuclia\Enum\EnumRepository;
 use Nuclia\Enum\MethodEnum;
 use Nuclia\RequestOptions\RequestOptions;
 use Nuclia\RequestOptions\RequestOptionsGroup;
@@ -40,6 +40,6 @@ class ResourceFieldsApi extends ApiAbstract
               ->set('Content-Type', 'multipart/form-data')
         )
         ->set('body', $body);
-        return $this->request(Enum::method(MethodEnum::POST), $uri, $options->getArray());
+        return $this->request(EnumRepository::method(MethodEnum::POST), $uri, $options->getArray());
     }
 }
