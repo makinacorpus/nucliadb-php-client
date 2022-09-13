@@ -21,7 +21,7 @@ interface EnumArrayInterface
      *
      * @return mixed
      */
-    public function addValue($value);
+    public function addValue(mixed $value);
 
     /**
      * Get array values.

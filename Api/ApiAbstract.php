@@ -70,10 +70,10 @@ abstract class ApiAbstract
         }
 
         if ($debug = $this->apiClient->getProperty('debug')) {
-            $debug->debugRequest($method->getValue(), $url, $options);
+            $debug->debugRequest($method->value, $url, $options);
         }
 
-        $response = $this->apiClient->getProperty('httpClient')->request($method->getValue(), $url, $options);
+        $response = $this->apiClient->getProperty('httpClient')->request($method->value, $url, $options);
 
         if ($debug = $this->apiClient->getProperty('debug')) {
             $debug->debugResponse($response);

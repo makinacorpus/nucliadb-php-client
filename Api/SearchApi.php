@@ -2,7 +2,6 @@
 
 namespace Nuclia\Api;
 
-use Nuclia\Enum\EnumRepository;
 use Nuclia\Enum\MethodEnum;
 use Nuclia\Enum\SortEnum;
 use Nuclia\RequestOptions\RequestOptions;
@@ -21,12 +20,12 @@ class SearchApi extends ApiAbstract
      * Implement: Search Knowledgebox.
      *
      * @see   https://docs.nuclia.dev/docs/api#operation/search_knowledgebox_kb__kbid__search_get
-     * @param string                     $query
-     * @param \Nuclia\Enum\SortEnum|null $sort
-     * @param int|null                   $pageNumber
-     * @param int|null                   $pageSize
+     * @param string        $query
+     * @param SortEnum|null $sort
+     * @param int|null      $pageNumber
+     * @param int|null      $pageSize
      *
-     * @return \Symfony\Contracts\HttpClient\ResponseInterface
+     * @return ResponseInterface
      */
     public function search(string $query, ?SortEnum $sort = null, ?int $pageNumber = null, ?int $pageSize = null): ResponseInterface
     {
@@ -40,6 +39,6 @@ class SearchApi extends ApiAbstract
                 ->set('page_number', $pageNumber)
                 ->set('page_size', $pageSize)
         );
-        return $this->request(EnumRepository::method(MethodEnum::GET), $uri, $options->getArray());
+        return $this->request(MethodEnum::GET, $uri, $options->getArray());
     }
 }

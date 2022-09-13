@@ -27,8 +27,13 @@ abstract class EnumArrayAbstract implements EnumArrayInterface
     {
         $values = [];
         foreach ($this->items as $item) {
-            $values[] = $item->getValue();
+            $values[] = $item->value;
         }
         return $values;
+    }
+
+    public function addValue(mixed $value)
+    {
+        return call_user_func([$this, 'testValue'], $value);
     }
 }

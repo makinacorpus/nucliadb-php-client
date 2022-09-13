@@ -12,8 +12,8 @@ class ExtractedEnumArray extends EnumArrayAbstract
     /**
      * @inerhitDoc
      */
-    public function addValue($value)
+    public function testValue(ExtractedEnum $value)
     {
-        return new ExtractedEnum($value);
+        return $value;
     }
 }

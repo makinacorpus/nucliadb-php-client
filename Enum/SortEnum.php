@@ -5,19 +5,10 @@ namespace Nuclia\Enum;
 /**
  * Enum class for 'sort' value.
  */
-class SortEnum extends EnumAbstract
+enum SortEnum: string
 {
-    public const MODIFIED = 'modified';
-    public const CREATED = 'created';
+    use EnumToArrayTrait;
 
-    /**
-     * @inerhitDoc
-     */
-    public function getAllowedValues(): array
-    {
-        return [
-        self::MODIFIED,
-        self::CREATED,
-        ];
-    }
+    case MODIFIED = 'modified';
+    case CREATED = 'created';
 }

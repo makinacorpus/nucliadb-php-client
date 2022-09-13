@@ -5,31 +5,16 @@ namespace Nuclia\Enum;
 /**
  * Enum class for 'field_type' value.
  */
-class FieldTypeEnum extends EnumAbstract
+enum FieldTypeEnum: string
 {
-    public const TEXT = 'text';
-    public const FILE = 'file';
-    public const LINK = 'link';
-    public const LAYOUT = 'layout';
-    public const CONVERSATION = 'conversation';
-    public const KEYWORDSET = 'keywordset';
-    public const DATETIME = 'datetime';
-    public const GENERIC = 'generic';
+    use EnumToArrayTrait;
 
-    /**
-     * @inerhitDoc
-     */
-    public function getAllowedValues(): array
-    {
-        return [
-        self::TEXT,
-        self::FILE,
-        self::LINK,
-        self::LAYOUT,
-        self::CONVERSATION,
-        self::KEYWORDSET,
-        self::DATETIME,
-        self::GENERIC,
-        ];
-    }
+    case TEXT = 'text';
+    case FILE = 'file';
+    case LINK = 'link';
+    case LAYOUT = 'layout';
+    case CONVERSATION = 'conversation';
+    case KEYWORDSET = 'keywordset';
+    case DATETIME = 'datetime';
+    case GENERIC = 'generic';
 }

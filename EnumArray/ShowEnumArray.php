@@ -12,8 +12,8 @@ class ShowEnumArray extends EnumArrayAbstract
     /**
      * @inerhitDoc
      */
-    public function addValue($value)
+    public function testValue(ShowEnum $value)
     {
-        return new ShowEnum($value);
+        return $value;
     }
 }

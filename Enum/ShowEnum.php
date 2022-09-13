@@ -5,27 +5,14 @@ namespace Nuclia\Enum;
 /**
  * Enum class for 'show' value.
  */
-class ShowEnum extends EnumAbstract
+enum ShowEnum: string
 {
-    public const BASIC = 'basic';
-    public const ORIGIN = 'origin';
-    public const RELATION = 'relations';
-    public const VALUES = 'values';
-    public const EXTRACTED = 'extracted';
-    public const ERROR = 'errors';
+    use EnumToArrayTrait;
 
-    /**
-     * @inerhitDoc
-     */
-    public function getAllowedValues(): array
-    {
-        return [
-        self::BASIC,
-        self::ORIGIN,
-        self::RELATION,
-        self::VALUES,
-        self::EXTRACTED,
-        self::ERROR,
-        ];
-    }
+    case BASIC = 'basic';
+    case ORIGIN = 'origin';
+    case RELATION = 'relations';
+    case VALUES = 'values';
+    case EXTRACTED = 'extracted';
+    case ERROR = 'errors';
 }

@@ -12,8 +12,8 @@ class FieldTypeEnumArray extends EnumArrayAbstract
     /**
      * @inerhitDoc
      */
-    public function addValue($value)
+    public function testValue(FieldTypeEnum $value)
     {
-        return new FieldTypeEnum($value);
+        return $value;
     }
 }
