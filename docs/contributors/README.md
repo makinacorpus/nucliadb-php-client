@@ -12,7 +12,7 @@ Please lint your code before submitting a PR
 
 Here some keypoints to help you to start contributing :
 
-* Api classes (Not documented yet. Will come soon).
+* [Api classes](api_classes.md)
 * [Enums and EnumArrays](enums.md)
 * Request options (Not documented yet. Will come soon).
 
