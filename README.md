@@ -26,7 +26,9 @@ $searchApi = $apiClient->createSearchApi();
 ```
 ### Run a simple full text search
 ```php
-$response = $searchApi->search('you+shall+not+pass');
+use Nuclia\Query\SearchQuery;
+
+$response = $searchApi->search((new SearchQuery())->setQuery('you+shall+not+pass'));
 ```
 `$response` returns an instance of [Symfony HTTP Client response](https://symfony.com/doc/current/http_client.html#basic-usage)
 
@@ -38,8 +40,12 @@ $resourcesApi = $apiClient->createResourcesApi();
 ```
 ### Get resource.
 ```php
+use Nuclia\Query\GetResourceQuery;
+
 $rid = '<resource-id>'
-$response = $resourcesApi->getResource($rid,EnumArray::show([ShowEnum::VALUES, ShowEnum::BASIC]));
+$response = $resourcesApi->getResource($rid,(new GetResourceQuery()
+    ->setShow(EnumArray::show([ShowEnum::VALUES, ShowEnum::BASIC]))
+);
 ```
 ### Create resource.
 ```php

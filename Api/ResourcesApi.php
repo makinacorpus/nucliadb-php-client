@@ -3,9 +3,11 @@
 namespace Nuclia\Api;
 
 use Nuclia\Enum\MethodEnum;
+use Nuclia\Enum\RequestOptionsGroupEnum;
 use Nuclia\EnumArray\ExtractedEnumArray;
 use Nuclia\EnumArray\FieldTypeEnumArray;
 use Nuclia\EnumArray\ShowEnumArray;
+use Nuclia\Query\GetResourceQuery;
 use Nuclia\RequestOptions\RequestOptions;
 use Nuclia\RequestOptions\RequestOptionsGroup;
 use Nuclia\Utils;
@@ -22,24 +24,20 @@ class ResourcesApi extends ApiAbstract
      * Implement: Get Resource.
      *
      * @see   https://docs.nuclia.dev/docs/api#operation/Get_Resource_kb__kbid__resource__rid__get
-     * @param string                                    $rid
-     * @param \Nuclia\EnumArray\ShowEnumArray|null      $show
-     * @param \Nuclia\EnumArray\FieldTypeEnumArray|null $fieldType
-     * @param \Nuclia\EnumArray\ExtractedEnumArray|null $extracted
+     *
+     * @param string $rid
+     * @param GetResourceQuery $getResourceQuery
      *
      * @return \Symfony\Contracts\HttpClient\ResponseInterface
      */
-    public function getResource(string $rid, ShowEnumArray $show = null, FieldTypeEnumArray $fieldType = null, ExtractedEnumArray $extracted = null): ResponseInterface
+    public function getResource(string $rid, GetResourceQuery $getResourceQuery): ResponseInterface
     {
         $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
         $options = (new RequestOptions($this->apiClient))
-        ->group(
-            'query',
-            (new RequestOptionsGroup())
-                ->set('show', Utils::getEnumArrayValues($show))
-                ->set('field_type', Utils::getEnumArrayValues($fieldType))
-                ->set('extracted', Utils::getEnumArrayValues($extracted))
-        );
+            ->group(
+                RequestOptionsGroupEnum::QUERY,
+                $getResourceQuery
+            );
         return $this->request(MethodEnum::GET, $uri, $options->getArray());
     }
 
@@ -56,12 +54,12 @@ class ResourcesApi extends ApiAbstract
         $uri = $this->buildUrl('resources');
         $options = (new RequestOptions($this->apiClient))
         ->group(
-            'headers',
+            RequestOptionsGroupEnum::HEADERS,
             (new RequestOptionsGroup())
               ->set('Content-Type', 'application/json')
         )
         ->group(
-            'body',
+            RequestOptionsGroupEnum::BODY,
             (new RequestOptionsGroup($body))
               ->enableJsonMode()
         );
@@ -98,12 +96,12 @@ class ResourcesApi extends ApiAbstract
         $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
         $options = (new RequestOptions($this->apiClient))
         ->group(
-            'headers',
+            RequestOptionsGroupEnum::HEADERS,
             (new RequestOptionsGroup())
               ->set('Content-Type', 'application/json')
         )
         ->group(
-            'body',
+            RequestOptionsGroupEnum::BODY,
             (new RequestOptionsGroup($body))
               ->enableJsonMode()
         );

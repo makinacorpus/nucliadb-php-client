@@ -3,7 +3,9 @@
 namespace Nuclia\Api;
 
 use Nuclia\Enum\MethodEnum;
+use Nuclia\Enum\RequestOptionsGroupEnum;
 use Nuclia\Enum\SortEnum;
+use Nuclia\Query\SearchQuery;
 use Nuclia\RequestOptions\RequestOptions;
 use Nuclia\RequestOptions\RequestOptionsGroup;
 use Nuclia\Utils;
@@ -20,25 +22,20 @@ class SearchApi extends ApiAbstract
      * Implement: Search Knowledgebox.
      *
      * @see   https://docs.nuclia.dev/docs/api#operation/search_knowledgebox_kb__kbid__search_get
-     * @param string        $query
-     * @param SortEnum|null $sort
-     * @param int|null      $pageNumber
-     * @param int|null      $pageSize
+     *
+     * @param SearchQuery $searchQuery
      *
      * @return ResponseInterface
      */
-    public function search(string $query, ?SortEnum $sort = null, ?int $pageNumber = null, ?int $pageSize = null): ResponseInterface
-    {
+    public function search(
+        SearchQuery $searchQuery
+    ): ResponseInterface {
         $uri = $this->buildUrl('search');
         $options = (new RequestOptions($this->apiClient))
-        ->group(
-            'query',
-            (new RequestOptionsGroup())
-                ->set('query', $query)
-                ->set('sort', Utils::getEnumValue($sort))
-                ->set('page_number', $pageNumber)
-                ->set('page_size', $pageSize)
-        );
+            ->group(
+                RequestOptionsGroupEnum::QUERY,
+                $searchQuery->build()
+            );
         return $this->request(MethodEnum::GET, $uri, $options->getArray());
     }
 }

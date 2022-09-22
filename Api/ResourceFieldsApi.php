@@ -3,6 +3,7 @@
 namespace Nuclia\Api;
 
 use Nuclia\Enum\MethodEnum;
+use Nuclia\Enum\RequestOptionsGroupEnum;
 use Nuclia\RequestOptions\RequestOptions;
 use Nuclia\RequestOptions\RequestOptionsGroup;
 
@@ -34,7 +35,7 @@ class ResourceFieldsApi extends ApiAbstract
         );
         $options = (new RequestOptions($this->apiClient))
         ->group(
-            'headers',
+            RequestOptionsGroupEnum::HEADERS,
             (new RequestOptionsGroup())
               ->set('Content-Type', 'multipart/form-data')
         )

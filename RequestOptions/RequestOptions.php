@@ -3,6 +3,7 @@
 namespace Nuclia\RequestOptions;
 
 use Nuclia\ApiClient;
+use Nuclia\Enum\RequestOptionsGroupEnum;
 
 /**
  * Request options.
@@ -32,24 +33,24 @@ class RequestOptions extends RequestOptionsAbstract
     /**
      * Add a RequestOptionsGroup inside the current RequestOptions.
      *
-     * @param string              $key
+     * @param RequestOptionsGroupEnum $group
      * @param RequestOptionsGroup $subset
      *
      * @return $this
      */
-    public function group(string $key, RequestOptionsGroup $subset)
+    public function group(RequestOptionsGroupEnum $group, RequestOptionsGroup $subset): static
     {
-        if (!key_exists($key, $this->values)) {
-            $this->values[$key] = new RequestOptionsGroup();
+        if (!key_exists($group->value, $this->values)) {
+            $this->values[$group->value] = new RequestOptionsGroup();
         }
 
-        foreach ($subset->getRaw() as $subkey => $subitem) {
-            $this->values[$key]->set($subkey, $subitem);
+        foreach ($subset->getRaw() as $subKey => $subItem) {
+            $this->values[$group->value]->set($subKey, $subItem);
         }
         if ($subset->getJsonMode()) {
-            $this->values[$key]->enableJsonMode();
+            $this->values[$group->value]->enableJsonMode();
         } else {
-            $this->values[$key]->disableJsonMode();
+            $this->values[$group->value]->disableJsonMode();
         }
 
         return $this;
