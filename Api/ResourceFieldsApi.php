@@ -2,10 +2,12 @@
 
 namespace Nuclia\Api;
 
+use Nuclia\Enum\Enum;
 use Nuclia\Enum\MethodEnum;
 use Nuclia\Enum\RequestOptionsGroupEnum;
 use Nuclia\RequestOptions\RequestOptions;
 use Nuclia\RequestOptions\RequestOptionsGroup;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Resources API class that reflects Resource Fields NucliaDB web API.
@@ -22,9 +24,9 @@ class ResourceFieldsApi extends ApiAbstract
      * @param string $fieldId
      * @param string $body
      *
-     * @return \Symfony\Contracts\HttpClient\ResponseInterface
+     * @return ResponseInterface
      */
-    public function uploadBinaryFile(string $rid, string $fieldId, string $body)
+    public function uploadBinaryFile(string $rid, string $fieldId, string $body): ResponseInterface
     {
         $uri = $this->buildUrl(
             'resource/%rid/file/%field/upload',
@@ -35,11 +37,11 @@ class ResourceFieldsApi extends ApiAbstract
         );
         $options = (new RequestOptions($this->apiClient))
         ->group(
-            RequestOptionsGroupEnum::HEADERS,
+            Enum::requestOptionsGroup(RequestOptionsGroupEnum::HEADERS),
             (new RequestOptionsGroup())
               ->set('Content-Type', 'multipart/form-data')
         )
         ->set('body', $body);
-        return $this->request(MethodEnum::POST, $uri, $options->getArray());
+        return $this->request(Enum::method(MethodEnum::POST), $uri, $options->getArray());
     }
 }

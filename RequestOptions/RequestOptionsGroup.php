@@ -7,7 +7,7 @@ namespace Nuclia\RequestOptions;
  */
 class RequestOptionsGroup extends RequestOptionsAbstract
 {
-    protected $jsonMode;
+    protected bool $jsonMode;
 
     /**
      * @inerhitDoc
@@ -34,7 +34,7 @@ class RequestOptionsGroup extends RequestOptionsAbstract
      *
      * @return $this
      */
-    public function enableJsonMode()
+    public function enableJsonMode(): RequestOptionsGroup
     {
         $this->jsonMode = true;
         return $this;
@@ -45,7 +45,7 @@ class RequestOptionsGroup extends RequestOptionsAbstract
      *
      * @return $this
      */
-    public function disableJsonMode()
+    public function disableJsonMode(): RequestOptionsGroup
     {
         $this->jsonMode = false;
         return $this;
@@ -56,7 +56,7 @@ class RequestOptionsGroup extends RequestOptionsAbstract
      *
      * @return false
      */
-    public function getJsonMode()
+    public function getJsonMode(): bool
     {
         return $this->jsonMode;
     }

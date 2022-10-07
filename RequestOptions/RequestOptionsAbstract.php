@@ -7,14 +7,14 @@ namespace Nuclia\RequestOptions;
  */
 abstract class RequestOptionsAbstract
 {
-    protected $values;
+    protected array $values;
 
     /**
      * Constructor.
      *
-     * @param $defaultValues
+     * @param array $defaultValues
      */
-    public function __construct($defaultValues = [])
+    public function __construct(array $defaultValues = [])
     {
         $this->values = $defaultValues;
     }
@@ -27,7 +27,7 @@ abstract class RequestOptionsAbstract
      *
      * @return $this
      */
-    public function set(string $key, $value = null)
+    public function set(string $key, $value = null): RequestOptionsAbstract
     {
         if ($value !== null) {
             $this->values[$key] = $value;
@@ -52,8 +52,8 @@ abstract class RequestOptionsAbstract
                     // Append default headers.
                     if ($key === 'headers' && $this instanceof RequestOptions) {
                         /**
-             * @var RequestOptions $thisOptions
-                  */
+                         * @var RequestOptions $thisOptions
+                         */
                         $thisOptions = $this;
                         $valueArray += $thisOptions->getApiClient()->getDefaultHeaders();
                     }

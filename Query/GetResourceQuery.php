@@ -42,7 +42,7 @@ class GetResourceQuery
    * @param ShowEnumArray|null $show
    * @return GetResourceQuery
    */
-  public function setShow(?ShowEnumArray $show): static
+  public function setShow(?ShowEnumArray $show): GetResourceQuery
   {
       $this->show = $show;
       return $this;
@@ -53,7 +53,7 @@ class GetResourceQuery
    *
    * @return $this
    */
-  public function setFieldType(?FieldTypeEnumArray $fieldType): static
+  public function setFieldType(?FieldTypeEnumArray $fieldType): GetResourceQuery
   {
       $this->fieldType = $fieldType;
       return $this;
@@ -64,7 +64,7 @@ class GetResourceQuery
    *
    * @return $this
    */
-  public function setExtracted(?ExtractedEnumArray $extracted): static
+  public function setExtracted(?ExtractedEnumArray $extracted): GetResourceQuery
   {
       $this->extracted = $extracted;
       return $this;

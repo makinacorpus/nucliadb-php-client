@@ -12,7 +12,7 @@ class ExtractedEnumArray extends EnumArrayAbstract
     /**
      * @inerhitDoc
      */
-    public function testValue(ExtractedEnum $value)
+    public function testValue(ExtractedEnum $value): ExtractedEnum
     {
         return $value;
     }

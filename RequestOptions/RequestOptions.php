@@ -13,14 +13,14 @@ class RequestOptions extends RequestOptionsAbstract
     /**
      * Api client.
      *
-     * @var \Nuclia\ApiClientApiClient
+     * @var ApiClient
      */
     protected ApiClient $apiClient;
 
     /**
      * @inerhitDoc
      *
-     * @param \Nuclia\ApiClient $apiClient
+     * @param ApiClient $apiClient
      */
     public function __construct(ApiClient $apiClient)
     {
@@ -38,19 +38,20 @@ class RequestOptions extends RequestOptionsAbstract
      *
      * @return $this
      */
-    public function group(RequestOptionsGroupEnum $group, RequestOptionsGroup $subset): static
+    public function group(RequestOptionsGroupEnum $group, RequestOptionsGroup $subset): RequestOptions
     {
-        if (!key_exists($group->value, $this->values)) {
-            $this->values[$group->value] = new RequestOptionsGroup();
+        $groupValue = $group->value;
+        if (!key_exists($groupValue, $this->values)) {
+            $this->values[$groupValue] = new RequestOptionsGroup();
         }
 
         foreach ($subset->getRaw() as $subKey => $subItem) {
-            $this->values[$group->value]->set($subKey, $subItem);
+            $this->values[$groupValue]->set($subKey, $subItem);
         }
         if ($subset->getJsonMode()) {
-            $this->values[$group->value]->enableJsonMode();
+            $this->values[$groupValue]->enableJsonMode();
         } else {
-            $this->values[$group->value]->disableJsonMode();
+            $this->values[$groupValue]->disableJsonMode();
         }
 
         return $this;
@@ -59,9 +60,9 @@ class RequestOptions extends RequestOptionsAbstract
     /**
      * Get Api client.
      *
-     * @return \Nuclia\ApiClient
+     * @return ApiClient
      */
-    public function getApiClient()
+    public function getApiClient(): ApiClient
     {
         return $this->apiClient;
     }

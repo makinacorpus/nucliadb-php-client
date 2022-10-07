@@ -12,7 +12,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 abstract class ApiAbstract
 {
-    protected $apiClient;
+    protected ApiClient $apiClient;
 
     /**
      *
@@ -45,17 +45,17 @@ abstract class ApiAbstract
         );
     }
 
-    /**
-     * Send a request to Nuclia web API and return the response.
-     *
-     * @param string $method
-     *
-     * @see   ApiClient::API_METHOD_* const
-     * @param string $url
-     * @param array  $options
-     *
-     * @return \Symfony\Contracts\HttpClient\ResponseInterface
-     */
+  /**
+   * Send a request to Nuclia web API and return the response.
+   *
+   * @param MethodEnum $method
+   *
+   * @param string     $url
+   * @param array      $options
+   *
+   * @return ResponseInterface
+   * @see   ApiClient::API_METHOD_* const
+   */
     protected function request(MethodEnum $method, string $url, array $options = []): ResponseInterface
     {
         // Encode query string manually. @see https://stackoverflow.com/questions/60440737/symfony-httpclient-get-request-with-multiple-query-string-parameters-with-same-n
@@ -69,13 +69,14 @@ abstract class ApiAbstract
             $url = sprintf('%s?%s', $url, $queryString);
         }
 
-        if ($debug = $this->apiClient->getProperty('debug')) {
+        $debug = $this->apiClient->getProperty('debug');
+        if ($debug) {
             $debug->debugRequest($method->value, $url, $options);
         }
 
         $response = $this->apiClient->getProperty('httpClient')->request($method->value, $url, $options);
 
-        if ($debug = $this->apiClient->getProperty('debug')) {
+        if ($debug) {
             $debug->debugResponse($response);
         }
         return $response;

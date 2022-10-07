@@ -2,8 +2,8 @@
 
 namespace Nuclia;
 
-use Nuclia\Enum\EnumInterface;
-use Nuclia\EnumArray\EnumArrayInterface;
+use Nuclia\Enum\EnumAbstract;
+use Nuclia\EnumArray\EnumArrayAbstract;
 
 /**
  * Utility class.
@@ -13,13 +13,13 @@ class Utils
     /**
      * Get the values of an enum array if defined or null instead.
      *
-     * @param \Nuclia\EnumArray\EnumArrayInterface|null $enumArray
+     * @param EnumArrayAbstract|null $enumArray
      *
      * @return array|null
      */
-    public static function getEnumArrayValues(?EnumArrayInterface $enumArray)
+    public static function getEnumArrayValues(?EnumArrayAbstract $enumArray): ?array
     {
-        if ($enumArray instanceof EnumArrayInterface) {
+        if ($enumArray instanceof EnumArrayAbstract) {
             return $enumArray->getValues();
         }
         return null;
@@ -28,13 +28,13 @@ class Utils
     /**
      * Get the value of an enum if defined or null instead.
      *
-     * @param \Nuclia\Enum\EnumInterface|null $enum
+     * @param EnumAbstract|null $enum
      *
-     * @return array|EnumArrayInterface|null
+     * @return string|null
      */
-    public static function getEnumValue(?EnumInterface $enum)
+    public static function getEnumValue(?EnumAbstract $enum): ?string
     {
-        if ($enum instanceof EnumInterface) {
+        if ($enum instanceof EnumAbstract) {
             return $enum->getValue();
         }
         return null;

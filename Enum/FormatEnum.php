@@ -5,12 +5,23 @@ namespace Nuclia\Enum;
 /**
  * Enum class for 'format' value.
  */
-enum FormatEnum: string
+class FormatEnum extends EnumAbstract
 {
-    use EnumToArrayTrait;
+    public const PLAIN = 'PLAIN';
+    public const HTML = 'HTML';
+    public const RST = 'RST';
+    public const MARKDOWN = 'MARKDOWN';
 
-    case PLAIN = 'PLAIN';
-    case HTML = 'HTML';
-    case RST = 'RST';
-    case MARKDOWN = 'MARKDOWN';
+    /**
+     * @inerhitDoc
+     */
+    public function getAllowedValues(): array
+    {
+        return [
+        self::PLAIN,
+        self::HTML,
+        self::RST,
+        self::MARKDOWN,
+        ];
+    }
 }

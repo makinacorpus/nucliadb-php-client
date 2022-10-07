@@ -6,6 +6,7 @@ use Nuclia\Api\ResourceFieldsApi;
 use Nuclia\Api\ResourcesApi;
 use Nuclia\Api\SearchApi;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * Nuclia API PHP client
@@ -17,11 +18,11 @@ class ApiClient
     public const API_DOMAIN = 'nuclia.cloud';
     public const API_BASEPATH = 'api/v1/kb';
 
-    protected $zone;
-    protected $token;
-    protected $kbid;
-    protected $httpClient;
-    protected $debug;
+    protected string $zone;
+    protected string $token;
+    protected string $kbid;
+    protected HttpClientInterface $httpClient;
+    protected ?DebugAdapterInterface $debug;
 
     /**
      * Default http headers to insert into any query.

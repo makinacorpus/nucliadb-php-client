@@ -3,11 +3,23 @@
 namespace Nuclia\Enum;
 
 /**
- * Enum for 'method' value.
+ * Enum class for 'method' value.
  */
-enum RequestOptionsGroupEnum: string
+class RequestOptionsGroupEnum extends EnumAbstract
 {
-    case QUERY = 'query';
-    case HEADERS = 'headers';
-    case BODY = 'body';
+    public const QUERY = 'query';
+    public const HEADERS = 'headers';
+    public const BODY = 'body';
+
+    /**
+     * @inerhitDoc
+     */
+    public function getAllowedValues(): array
+    {
+        return [
+          self::QUERY,
+          self::HEADERS,
+          self::BODY,
+        ];
+    }
 }

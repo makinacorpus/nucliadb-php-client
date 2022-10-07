@@ -12,7 +12,7 @@ class ShowEnumArray extends EnumArrayAbstract
     /**
      * @inerhitDoc
      */
-    public function testValue(ShowEnum $value)
+    public function testValue(ShowEnum $value): ShowEnum
     {
         return $value;
     }

@@ -2,13 +2,11 @@
 
 namespace Nuclia\Api;
 
+use Nuclia\Enum\Enum;
 use Nuclia\Enum\MethodEnum;
 use Nuclia\Enum\RequestOptionsGroupEnum;
-use Nuclia\Enum\SortEnum;
 use Nuclia\Query\SearchQuery;
 use Nuclia\RequestOptions\RequestOptions;
-use Nuclia\RequestOptions\RequestOptionsGroup;
-use Nuclia\Utils;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -33,9 +31,9 @@ class SearchApi extends ApiAbstract
         $uri = $this->buildUrl('search');
         $options = (new RequestOptions($this->apiClient))
             ->group(
-                RequestOptionsGroupEnum::QUERY,
+                Enum::requestOptionsGroup(RequestOptionsGroupEnum::QUERY),
                 $searchQuery->build()
             );
-        return $this->request(MethodEnum::GET, $uri, $options->getArray());
+        return $this->request(Enum::method(MethodEnum::GET), $uri, $options->getArray());
     }
 }

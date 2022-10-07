@@ -2,15 +2,12 @@
 
 namespace Nuclia\Api;
 
+use Nuclia\Enum\Enum;
 use Nuclia\Enum\MethodEnum;
 use Nuclia\Enum\RequestOptionsGroupEnum;
-use Nuclia\EnumArray\ExtractedEnumArray;
-use Nuclia\EnumArray\FieldTypeEnumArray;
-use Nuclia\EnumArray\ShowEnumArray;
 use Nuclia\Query\GetResourceQuery;
 use Nuclia\RequestOptions\RequestOptions;
 use Nuclia\RequestOptions\RequestOptionsGroup;
-use Nuclia\Utils;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -28,17 +25,17 @@ class ResourcesApi extends ApiAbstract
      * @param string $rid
      * @param GetResourceQuery $getResourceQuery
      *
-     * @return \Symfony\Contracts\HttpClient\ResponseInterface
+     * @return ResponseInterface
      */
     public function getResource(string $rid, GetResourceQuery $getResourceQuery): ResponseInterface
     {
         $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
         $options = (new RequestOptions($this->apiClient))
             ->group(
-                RequestOptionsGroupEnum::QUERY,
-                $getResourceQuery
+                Enum::requestOptionsGroup(RequestOptionsGroupEnum::QUERY),
+                $getResourceQuery->build()
             );
-        return $this->request(MethodEnum::GET, $uri, $options->getArray());
+        return $this->request(Enum::method(MethodEnum::GET), $uri, $options->getArray());
     }
 
     /**
@@ -47,24 +44,24 @@ class ResourcesApi extends ApiAbstract
      * @see   https://docs.nuclia.dev/docs/api#operation/Create_Resource_kb__kbid__resources_post
      * @param array $body
      *
-     * @return \Symfony\Contracts\HttpClient\ResponseInterface
+     * @return ResponseInterface
      */
     public function createResource(array $body): ResponseInterface
     {
         $uri = $this->buildUrl('resources');
         $options = (new RequestOptions($this->apiClient))
         ->group(
-            RequestOptionsGroupEnum::HEADERS,
+            Enum::requestOptionsGroup(RequestOptionsGroupEnum::HEADERS),
             (new RequestOptionsGroup())
               ->set('Content-Type', 'application/json')
         )
         ->group(
-            RequestOptionsGroupEnum::BODY,
+            Enum::requestOptionsGroup(RequestOptionsGroupEnum::BODY),
             (new RequestOptionsGroup($body))
               ->enableJsonMode()
         );
 
-        return $this->request(MethodEnum::POST, $uri, $options->getArray());
+        return $this->request(Enum::method(MethodEnum::POST), $uri, $options->getArray());
     }
 
     /**
@@ -73,13 +70,13 @@ class ResourcesApi extends ApiAbstract
      * @see   https://docs.nuclia.dev/docs/api#operation/Delete_Resource_kb__kbid__resource__rid__delete
      * @param string $rid
      *
-     * @return \Symfony\Contracts\HttpClient\ResponseInterface
+     * @return ResponseInterface
      */
     public function deleteResource(string $rid): ResponseInterface
     {
         $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
         $options = (new RequestOptions($this->apiClient));
-        return $this->request(MethodEnum::DELETE, $uri, $options->getArray());
+        return $this->request(Enum::method(MethodEnum::DELETE), $uri, $options->getArray());
     }
 
     /**
@@ -89,22 +86,22 @@ class ResourcesApi extends ApiAbstract
      * @param string $rid
      * @param $body
      *
-     * @return \Symfony\Contracts\HttpClient\ResponseInterface
+     * @return ResponseInterface
      */
     public function modifyResource(string $rid, $body): ResponseInterface
     {
         $uri = $this->buildUrl('resource/%rid', ['%rid' => $rid]);
         $options = (new RequestOptions($this->apiClient))
         ->group(
-            RequestOptionsGroupEnum::HEADERS,
+            Enum::requestOptionsGroup(RequestOptionsGroupEnum::HEADERS),
             (new RequestOptionsGroup())
               ->set('Content-Type', 'application/json')
         )
         ->group(
-            RequestOptionsGroupEnum::BODY,
+            Enum::requestOptionsGroup(RequestOptionsGroupEnum::BODY),
             (new RequestOptionsGroup($body))
               ->enableJsonMode()
         );
-        return $this->request(MethodEnum::PATCH, $uri, $options->getArray());
+        return $this->request(Enum::method(MethodEnum::PATCH), $uri, $options->getArray());
     }
 }

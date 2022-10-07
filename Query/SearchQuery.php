@@ -2,6 +2,7 @@
 
 namespace Nuclia\Query;
 
+use LogicException;
 use Nuclia\Enum\SortEnum;
 use Nuclia\RequestOptions\RequestOptionsGroup;
 use Nuclia\Utils;
@@ -54,7 +55,7 @@ class SearchQuery
      *
      * @return $this
      */
-    public function setQuery(?string $query): static
+    public function setQuery(?string $query): SearchQuery
     {
         $this->query = $query;
         return $this;
@@ -67,7 +68,7 @@ class SearchQuery
      *
      * @return $this
      */
-    public function setSort(?SortEnum $sort): static
+    public function setSort(?SortEnum $sort): SearchQuery
     {
         $this->sort = $sort;
         return $this;
@@ -80,7 +81,7 @@ class SearchQuery
      *
      * @return $this
      */
-    public function setPageNumber(?int $pageNumber): static
+    public function setPageNumber(?int $pageNumber): SearchQuery
     {
         $this->pageNumber = $pageNumber;
         return $this;
@@ -93,7 +94,7 @@ class SearchQuery
      *
      * @return $this
      */
-    public function setPageSize(?int $pageSize): static
+    public function setPageSize(?int $pageSize): SearchQuery
     {
         $this->pageSize = $pageSize;
         return $this;
@@ -106,7 +107,7 @@ class SearchQuery
      *
      * @return $this
      */
-    public function setShards(?array $shards): static
+    public function setShards(?array $shards): SearchQuery
     {
         $this->shards = $shards;
         return $this;
@@ -120,7 +121,7 @@ class SearchQuery
     public function build(): RequestOptionsGroup
     {
         if ($this->query === null) {
-            throw new \LogicException('"query" parameter must be defined.');
+            throw new LogicException('"query" parameter must be defined.');
         }
         return (new RequestOptionsGroup())
           ->set('query', $this->query)

@@ -3,14 +3,25 @@
 namespace Nuclia\Enum;
 
 /**
- * Enum for 'method' value.
+ * Enum class for 'method' value.
  */
-enum MethodEnum: string
+class MethodEnum extends EnumAbstract
 {
-    use EnumToArrayTrait;
+    public const GET = 'GET';
+    public const POST = 'POST';
+    public const DELETE = 'DELETE';
+    public const PATCH = 'PATCH';
 
-    case GET = 'GET';
-    case POST = 'POST';
-    case DELETE = 'DELETE';
-    case PATCH = 'PATCH';
+    /**
+     * @inerhitDoc
+     */
+    public function getAllowedValues(): array
+    {
+        return [
+        self::GET,
+        self::POST,
+        self::DELETE,
+        self::PATCH,
+        ];
+    }
 }
