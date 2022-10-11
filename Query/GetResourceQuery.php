@@ -40,6 +40,7 @@ class GetResourceQuery
 
   /**
    * @param ShowEnumArray|null $show
+   *
    * @return GetResourceQuery
    */
   public function setShow(?ShowEnumArray $show): GetResourceQuery
