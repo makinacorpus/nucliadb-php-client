@@ -87,9 +87,10 @@ $resourceFieldsApi = $apiClient->createResourceFieldsApi();
 ### Upload a binary File as a resource field
 ```php
 $body = file_get_contents('The-Fellowship-Of-The-Ring.jpg', 'r');
+$md5 = md5($body);
 $rid = '<resource-id>'
 $fieldId = '<field-id>' // A free string used to identify your file field in resource.
 
-$response = $resourceFieldsApi->uploadBinaryFile($rid,$fieldId, $body);
+$response = $resourceFieldsApi->uploadBinaryFile($rid, $fieldId, $body, (new UploadBinaryFileHeaders())->setMd5($md5));
 ```
 

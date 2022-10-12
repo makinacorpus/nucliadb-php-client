@@ -8,7 +8,7 @@ namespace Nuclia\Enum;
 class Enum
 {
     /**
-     * Create a new "method" enum value.
+     * Create a new MethodEnum.
      *
      * @param string $value
      *
@@ -20,7 +20,7 @@ class Enum
     }
 
     /**
-     * Create a new "show" enum value.
+     * Create a new ShowEnum.
      *
      * @param string $value
      *
@@ -32,7 +32,7 @@ class Enum
     }
 
     /**
-     * Create a new "field type" enum value.
+     * Create a new FieldTypeEnum.
      *
      * @param string $value
      *
@@ -44,7 +44,7 @@ class Enum
     }
 
     /**
-     * Create a new "extracted" enum value.
+     * Create a new ExtractedEnum.
      *
      * @param string $value
      *
@@ -56,7 +56,7 @@ class Enum
     }
 
     /**
-     * Create a new "sort" enum value.
+     * Create a new SortEnum.
      *
      * @param string $value
      *
@@ -67,6 +67,13 @@ class Enum
         return new SortEnum($value);
     }
 
+   /**
+    * Create a new RequestOptionsGroupEnum.
+    *
+    * @param string $value
+    *
+    * @return RequestOptionsGroupEnum
+    */
     public static function requestOptionsGroup(string $value): RequestOptionsGroupEnum
     {
         return new RequestOptionsGroupEnum($value);
